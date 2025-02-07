@@ -33,3 +33,10 @@
 - 3) Fix zones (events) locations
 - 4) Auto-switch ticks
 - 5) improve events style: set opacity ±80% by deafult. Add rounded corners. Add shadow, border.
+
+## Incoming tasks
+- [ ] auto-correct eevent colors for dark mode?
+- [ ] tweak the colors some more?
+  - [ ] add borders for bottom and top bars?
+  - [ ] can we use different colors / some bg picture for the timeline?
+  - [ ] shake up the colors some more?

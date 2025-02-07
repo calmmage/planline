@@ -149,7 +149,7 @@ export default function Timeline() {
       style={{ height: `${timelineHeight}vh` }}
     >
       <div className={`w-full h-full flex flex-col`}>
-        <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-2 bg-opacity-80 bg-gray-100">
+        <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-2 bg-background/80">
           <div className="flex space-x-2">
             {(["day", "week", "month", "quarter", "year", "decade"] as TimeUnit[]).map((unit) => (
               <Button
@@ -192,8 +192,8 @@ export default function Timeline() {
           onMouseUp={handleTimelineMouseUp}
           onMouseLeave={handleTimelineMouseUp}
         >
-          <div className="absolute top-0 left-1/2 h-full border-l border-gray-300"></div>
-          <div className="absolute top-1/2 left-0 w-full border-t border-gray-300"></div>
+          <div className="absolute top-0 left-1/2 h-full border-l border-border"></div>
+          <div className="absolute top-1/2 left-0 w-full border-t border-border"></div>
           <TimelineMarkers
             centerDate={centerDate}
             timeUnit={timeUnit}
@@ -222,7 +222,7 @@ export default function Timeline() {
           )}
           <AddEventButton onAddEvent={fetchEvents} />
         </div>
-        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between p-2 bg-opacity-80 bg-gray-100">
+        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between p-2 bg-background/80">
           <div className="text-sm">Visible time range: {calculateVisibleTimeRange()}</div>
           <Slider
             min={MIN_SCALE}
