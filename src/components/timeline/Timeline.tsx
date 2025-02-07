@@ -40,7 +40,7 @@ export default function Timeline() {
   const [numTicks, setNumTicks] = useState(DEFAULT_NUM_TICKS)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const timelineRef = useRef<HTMLDivElement>(null)
-  const [timelineHeight, setTimelineHeight] = useState(50)
+  const [timelineHeight, setTimelineHeight] = useState(75)
   const [selectionStart, setSelectionStart] = useState<Date | null>(null)
   const [selectionEnd, setSelectionEnd] = useState<Date | null>(null)
 
@@ -145,7 +145,10 @@ export default function Timeline() {
   }
 
   return (
-    <div className={`w-full h-[50vh] relative ${isDarkMode ? "dark" : ""}`}>
+    <div 
+      className={`w-full relative ${isDarkMode ? "dark" : ""}`} 
+      style={{ height: `${timelineHeight}vh` }}
+    >
       <div className={`w-full h-full flex flex-col ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
         <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-2 bg-opacity-80 bg-gray-100 dark:bg-gray-800">
           <div className="flex space-x-2">
