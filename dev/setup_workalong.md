@@ -92,4 +92,15 @@ You’ll see your Project URL and the anon public key (labeled as “anon key”
 
 ## Step 6 - how do I add the code back to v0.dev?
 
+Option 1: Fork the vercel chat and continue there
+
+Option 2: Create an archive and upload it to v0.dev - from main menu.
+- Pro: latest code version
+- Con: disattached from the project
+
 ## Step 7 - copy chat history from v0.dev and add all missing ideas and info
+
+- [x] copy history
+  - [chat_log.md](plans/chat_log.md)
+- [ ] Add all missing ideas and info
+

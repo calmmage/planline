@@ -22,7 +22,10 @@ export const DEFAULT_EVENT_TYPES = [
   { name: "Event", color: "#9C27B0" },
 ]
 
+// todo: rework to logarithmic scale
+// MIN_SCALE = -4 -> 10^-4 = 0.0001
+// MAX_SCALE = 0 -> 10^0 = 1
 export const MIN_SCALE = 0.0001
 export const MAX_SCALE = 1
-export const DEFAULT_NUM_TICKS = 10
+export const DEFAULT_NUM_TICKS = 50
 

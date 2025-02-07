@@ -86,6 +86,7 @@ export default function Timeline() {
 
   function handleEventClick(event: Event) {
     console.log("Event clicked:", event)
+    // todo: open edit event details dialog
   }
 
   function handleZoomChange(value: number[]) {
