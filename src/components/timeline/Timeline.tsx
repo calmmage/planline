@@ -38,7 +38,6 @@ export default function Timeline() {
   const [showDevSettings, setShowDevSettings] = useState(false)
   const [zoomLevelsScale, setZoomLevelsScale] = useState(1)
   const [numTicks, setNumTicks] = useState(DEFAULT_NUM_TICKS)
-  const [isDarkMode, setIsDarkMode] = useState(false)
   const timelineRef = useRef<HTMLDivElement>(null)
   const [timelineHeight, setTimelineHeight] = useState(75)
   const [selectionStart, setSelectionStart] = useState<Date | null>(null)
@@ -150,7 +149,7 @@ export default function Timeline() {
       style={{ height: `${timelineHeight}vh` }}
     >
       <div className={`w-full h-full flex flex-col`}>
-        <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-2 bg-opacity-80 bg-gray-100 dark:bg-gray-800">
+        <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-2 bg-opacity-80 bg-gray-100">
           <div className="flex space-x-2">
             {(["day", "week", "month", "quarter", "year", "decade"] as TimeUnit[]).map((unit) => (
               <Button
@@ -171,12 +170,6 @@ export default function Timeline() {
             <Button onClick={() => setShowDevSettings(!showDevSettings)} size="sm">
               {showDevSettings ? "Hide Dev Settings" : "Show Dev Settings"}
             </Button>
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="dark-mode" className="text-sm">
-                Dark Mode
-              </Label>
-              <Switch id="dark-mode" checked={isDarkMode} onCheckedChange={setIsDarkMode} />
-            </div>
           </div>
         </div>
         {showDevSettings && (
@@ -199,8 +192,8 @@ export default function Timeline() {
           onMouseUp={handleTimelineMouseUp}
           onMouseLeave={handleTimelineMouseUp}
         >
-          <div className="absolute top-0 left-1/2 h-full border-l border-gray-300 dark:border-gray-700"></div>
-          <div className="absolute top-1/2 left-0 w-full border-t border-gray-300 dark:border-gray-700"></div>
+          <div className="absolute top-0 left-1/2 h-full border-l border-gray-300"></div>
+          <div className="absolute top-1/2 left-0 w-full border-t border-gray-300"></div>
           <TimelineMarkers
             centerDate={centerDate}
             timeUnit={timeUnit}
@@ -214,7 +207,6 @@ export default function Timeline() {
             centerDate={centerDate}
             scale={scale}
             zoomLevelsScale={zoomLevelsScale}
-            isDarkMode={isDarkMode}
             onEventClick={handleEventClick}
           />
           {selectionStart && selectionEnd && (
@@ -230,7 +222,7 @@ export default function Timeline() {
           )}
           <AddEventButton onAddEvent={fetchEvents} />
         </div>
-        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between p-2 bg-opacity-80 bg-gray-100 dark:bg-gray-800">
+        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between p-2 bg-opacity-80 bg-gray-100">
           <div className="text-sm">Visible time range: {calculateVisibleTimeRange()}</div>
           <Slider
             min={MIN_SCALE}

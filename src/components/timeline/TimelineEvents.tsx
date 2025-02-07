@@ -7,7 +7,6 @@ interface TimelineEventsProps {
   centerDate: Date
   scale: number
   zoomLevelsScale: number
-  isDarkMode: boolean
   onEventClick: (event: Event) => void
 }
 
@@ -16,7 +15,6 @@ export function TimelineEvents({
   centerDate,
   scale,
   zoomLevelsScale,
-  isDarkMode,
   onEventClick,
 }: TimelineEventsProps) {
   return (
@@ -38,7 +36,7 @@ export function TimelineEvents({
 
         if (event.is_crayon) {
           eventStyle.borderRadius = "8px"
-          eventStyle.boxShadow = `0 0 0 4px ${isDarkMode ? "#1a1a1a" : "#fff"}, 0 0 0 6px ${event.color}`
+          eventStyle.boxShadow = `0 0 0 4px var(--background), 0 0 0 6px ${event.color}`
           eventStyle.border = `2px solid ${event.color}`
         }
 
