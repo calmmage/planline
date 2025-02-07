@@ -78,3 +78,6 @@ npm run bump
 -  look here it is! -> Link to a website deployment. https://v0-life-timeline-app-30k5ab.vercel.app/
 - [ ] make a video / gif with website demo
 
+## Step 6 - how do I add the code back to v0.dev?
+
+## Step 7 - copy chat history from v0.dev and add all missing ideas and info
