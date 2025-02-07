@@ -45,7 +45,7 @@ export default function EventDetails({ event, onClose, onUpdate }: EventDetailsP
     e.preventDefault()
     if (!event) return
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("events")
       .update({ name, start_date: startDate, end_date: endDate, color, type })
       .eq("id", event.id)

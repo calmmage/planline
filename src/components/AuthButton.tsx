@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/button"
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
 
 export default function AuthButton() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<{
+    id: string;
+    email?: string;
+  } | null>(null)
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {

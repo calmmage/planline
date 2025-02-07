@@ -57,7 +57,7 @@ export default function AddEventButton({ onAddEvent }: AddEventButtonProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const { data, error } = await supabase.from("events").insert([
+    const { error } = await supabase.from("events").insert([
       {
         name,
         start_date: startDate,
