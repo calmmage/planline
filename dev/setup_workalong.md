@@ -65,6 +65,18 @@ Now the following commands are available:
 npm run bump
 ```
 
+## Step 4.2 - setup supabase - done during v0.dev development
+- Create org
+- Create project
+- Create tables using [setup_database.sql](setup_database.sql)
+
+Url:
+https://supabase.com/dashboard/project/jullwluxyoiegzzqoazg/settings/api
+
+Copy the db url and anonymous key to .env file
+In the sidebar, navigate to Settings → API.
+You’ll see your Project URL and the anon public key (labeled as “anon key”).
+
 ## Step 5 - write simple blogpost
 
 -  backstory - want to plan travel
