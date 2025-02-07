@@ -13,6 +13,7 @@
 - Labels overlap each other
 - Zones positions are broken
 - Why does 'dark mode' switch only timeline view block?
+- For some crazy reason, Year, Quarter and Month ticks are misaligned.. Troubleshoot and fix.
 
 ## Ideas for big components
 
@@ -22,6 +23,10 @@
 
 ## Roadmap what I am doing
 
-- 1) Zones
-
-- 2) 
+- 0) dev switcher for timeline component width?
+- 0.1) fix dark mode switcher 
+- 1) Zones -> show.
+- 2) Switch to log scale
+- 3) Fix zones (events) locations
+- 4) Auto-switch ticks
+- 5) improve events style: set opacity ±80% by deafult. Add rounded corners. Add shadow, border.

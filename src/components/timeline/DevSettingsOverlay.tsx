@@ -8,6 +8,8 @@ interface DevSettingsOverlayProps {
   setZoomLevelsScale: (value: number) => void
   numTicks: number
   setNumTicks: (value: number) => void
+  timelineHeight: number
+  setTimelineHeight: (value: number) => void
   onClose: () => void
 }
 
@@ -16,6 +18,8 @@ export function DevSettingsOverlay({
   setZoomLevelsScale,
   numTicks,
   setNumTicks,
+  timelineHeight,
+  setTimelineHeight,
   onClose,
 }: DevSettingsOverlayProps) {
   return (
@@ -55,6 +59,28 @@ export function DevSettingsOverlay({
             onChange={(e) => setNumTicks(Number.parseInt(e.target.value))}
             className="w-16 text-sm"
           />
+        </div>
+        <div>
+          <Label htmlFor="timeline-height" className="text-sm">
+            Timeline Height (vh)
+          </Label>
+          <div className="flex items-center space-x-2">
+            <Slider
+              id="timeline-height"
+              min={20}
+              max={100}
+              step={1}
+              value={[timelineHeight]}
+              onValueChange={(value) => setTimelineHeight(value[0])}
+              className="w-32"
+            />
+            <Input
+              type="number"
+              value={timelineHeight}
+              onChange={(e) => setTimelineHeight(Number(e.target.value))}
+              className="w-16 text-sm"
+            />
+          </div>
         </div>
       </div>
       <Button onClick={onClose} className="mt-4 w-full" size="sm">

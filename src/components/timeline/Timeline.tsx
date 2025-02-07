@@ -39,9 +39,10 @@ export default function Timeline() {
   const [zoomLevelsScale, setZoomLevelsScale] = useState(1)
   const [numTicks, setNumTicks] = useState(DEFAULT_NUM_TICKS)
   const [isDarkMode, setIsDarkMode] = useState(false)
+  const timelineRef = useRef<HTMLDivElement>(null)
+  const [timelineHeight, setTimelineHeight] = useState(50)
   const [selectionStart, setSelectionStart] = useState<Date | null>(null)
   const [selectionEnd, setSelectionEnd] = useState<Date | null>(null)
-  const timelineRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetchEvents()
@@ -181,6 +182,8 @@ export default function Timeline() {
             setZoomLevelsScale={setZoomLevelsScale}
             numTicks={numTicks}
             setNumTicks={setNumTicks}
+            timelineHeight={timelineHeight}
+            setTimelineHeight={setTimelineHeight}
             onClose={() => setShowDevSettings(false)}
           />
         )}
