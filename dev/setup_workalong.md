@@ -104,3 +104,10 @@ Option 2: Create an archive and upload it to v0.dev - from main menu.
   - [chat_log.md](plans/chat_log.md)
 - [ ] Add all missing ideas and info
 
+## Step 8 - add dark mode - install ui components
+
+
+```bash
+npm install next-themes
+```
+

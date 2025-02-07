@@ -146,10 +146,10 @@ export default function Timeline() {
 
   return (
     <div 
-      className={`w-full relative ${isDarkMode ? "dark" : ""}`} 
+      className={`w-full relative`} 
       style={{ height: `${timelineHeight}vh` }}
     >
-      <div className={`w-full h-full flex flex-col ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+      <div className={`w-full h-full flex flex-col`}>
         <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-2 bg-opacity-80 bg-gray-100 dark:bg-gray-800">
           <div className="flex space-x-2">
             {(["day", "week", "month", "quarter", "year", "decade"] as TimeUnit[]).map((unit) => (

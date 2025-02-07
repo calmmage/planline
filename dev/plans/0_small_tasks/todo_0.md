@@ -5,7 +5,7 @@
 
 - [x] change default tick count to 10 or 50
 
-- [ ] add a new dev slider - timeline vertical size.
+- [x] add a new dev slider - timeline vertical size.
 
 ## Bugs
 - Days view is still broken.
@@ -23,8 +23,11 @@
 
 ## Roadmap what I am doing
 
-- 0) dev switcher for timeline component width?
-- 0.1) fix dark mode switcher 
+- [x] 0) dev switcher for timeline component width?
+- [x] 0.1) fix dark mode switcher
+  - [ ] cleanup old switcher
+  - [ ] make colors nicer -  "bg-gray-900 text-white" : "bg-white text-black"}`}> was good
+  - [ ] consider making it a switcher again?
 - 1) Zones -> show.
 - 2) Switch to log scale
 - 3) Fix zones (events) locations
