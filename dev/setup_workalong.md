@@ -49,9 +49,21 @@ See more info here: https://nextjs.org/docs/messages/react-hydration-error
 
 ## Step 4 - import our code from v0.dev
 
-- [ ] import plans
+- [x] import plans
 - [ ] import main deployed code
 
+
+## Step 4.1 - add semver
+`npm install --save-dev semver`
+
+Add to `package.json:`
+```json
+    "bump": "npm version patch",
+```
+Now the following commands are available:
+```bash
+npm run bump
+```
 
 ## Step 5 - write simple blogpost
 
@@ -65,3 +77,4 @@ See more info here: https://nextjs.org/docs/messages/react-hydration-error
    -  database with supabase
 -  look here it is! -> Link to a website deployment. https://v0-life-timeline-app-30k5ab.vercel.app/
 - [ ] make a video / gif with website demo
+
