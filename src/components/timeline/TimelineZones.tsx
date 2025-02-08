@@ -3,10 +3,9 @@ import { TIMELINE_ZONES } from "@/config/config"
 interface TimelineZonesProps {
   className?: string
   timelineHeight: number // vh units
-  events: Array<{ zone: number }>
 }
 
-export function TimelineZones({ className = "", timelineHeight, events }: TimelineZonesProps) {
+export function TimelineZones({ className = "", timelineHeight }: TimelineZonesProps) {
   // Sort zones by position to ensure correct rendering order
   const sortedZones = [...TIMELINE_ZONES].sort((a, b) => b.position - a.position)
   
