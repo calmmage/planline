@@ -1,0 +1,43 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
+    hooks:
+      - id: prettier
+        types_or: [javascript, jsx, ts, tsx, json, css, markdown]
+        additional_dependencies:
+          - prettier@3.1.0
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: npx eslint --fix
+        language: node
+        types_or: [javascript, jsx, ts, tsx]
+        additional_dependencies:
+          - eslint@9
+          - "@typescript-eslint/parser@8.23.0"
+          - "@typescript-eslint/eslint-plugin@8.23.0"
+          - "eslint-config-next@15.1.6"
+
+      - id: typescript
+        name: typescript
+        entry: npx tsc
+        language: node
+        types_or: [javascript, jsx, ts, tsx]
+        pass_filenames: false
+        additional_dependencies:
+          - typescript@5
