@@ -28,11 +28,12 @@
   - [x] cleanup old switcher
   - [x] make colors nicer -  "bg-gray-900 text-white" : "bg-white text-black"}`}> was good
   - [x] consider making it a switcher again?
-- 1) Zones -> show.
+- [x] 1) Zones -> show.
 - 2) Switch to log scale
-- 3) Fix zones (events) locations
+- [x] 3) Fix zones (events) locations
 - 4) Auto-switch ticks
-- 5) improve events style: set opacity ±80% by deafult. Add rounded corners. Add shadow, border.
+- [x] 5) improve events style: set opacity ±80% by deafult. Add rounded corners. Add shadow, border.
+  - 
 
 ## Incoming tasks
 - [ ] auto-correct eevent colors for dark mode?

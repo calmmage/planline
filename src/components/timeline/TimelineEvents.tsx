@@ -59,19 +59,40 @@ export function TimelineEvents({
           backgroundColor: event.color,
           top: `${verticalPosition}%`,
           transform: 'translateY(-50%)',
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+          opacity: 0.6,
+          borderRadius: '6px',
+          // Multiple layered shadows for depth + theme-aware border
+          boxShadow: `
+            0 4px 6px -1px var(--shadow-color-strong),
+            0 2px 4px -1px var(--shadow-color-weak),
+            0 0 0 2px var(--border)
+          `,
+          // Theme-aware border using CSS variable
+          // border: '2px solid var(--border)',
+
+          // boxShadow: 
+          //    "0 4px 6px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(255, 255, 255, 0.08)",
+            // : "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)",
+          border: "1px solid var(--border-color)" 
         }
 
         if (event.is_crayon) {
           eventStyle.borderRadius = "8px"
-          eventStyle.boxShadow = `0 0 0 4px var(--background), 0 0 0 6px ${event.color}`
+          eventStyle.opacity = 0.9
+          // For crayon events, keep the special outline effect but make it more prominent
+          eventStyle.boxShadow = `
+            0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06),
+            0 0 0 4px var(--background),
+            0 0 0 6px ${event.color}
+          `
           eventStyle.border = `2px solid ${event.color}`
         }
 
         return (
           <div
             key={event.id}
-            className="absolute h-8 flex items-center justify-center text-xs text-white cursor-pointer"
+            className="absolute h-8 flex items-center justify-center text-xs text-white cursor-pointer hover:opacity-100 transition-all duration-200 hover:scale-[1.02]"
             style={eventStyle}
             onClick={() => onEventClick(event)}
           >

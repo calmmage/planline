@@ -30,6 +30,40 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --border-color: rgba(0, 0, 0, 0.8);
+    --shadow-color-strong: rgba(0, 0, 0, 0.3);
+    --shadow-color-weak: rgba(0, 0, 0, 0.1);
+  }
+  .light {
+    /* Warm, paper-like theme */
+    --background: 45 30% 98%;  /* Warmer cream white */
+    --foreground: 30 15% 12%;
+    --card: 45 30% 98%;
+    --card-foreground: 30 15% 12%;
+    --popover: 45 30% 98%;
+    --popover-foreground: 30 15% 12%;
+    --primary: 30 15% 12%;
+    --primary-foreground: 45 30% 98%;
+    --secondary: 40 20% 92%;    /* Soft cream */
+    --secondary-foreground: 30 15% 12%;
+    --muted: 40 20% 92%;
+    --muted-foreground: 30 15% 40%;
+    --accent: 40 20% 92%;
+    --accent-foreground: 30 15% 12%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 45 30% 98%;
+    --border: 30 15% 80%;
+    --input: 30 15% 80%;
+    --ring: 30 15% 12%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --border-color: rgba(0, 0, 0, 1);
+    --shadow-color-strong: rgba(0, 0, 0, 0.3);
+    --shadow-color-weak: rgba(0, 0, 0, 0.1);
   }
   .dark {
     /* Rich, warm dark theme */
@@ -57,6 +91,9 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --border-color: rgba(255, 255, 255, 1);
+    --shadow-color-strong: rgba(255, 255, 255, 0.3);
+    --shadow-color-weak: rgba(255, 255, 255, 0.1);
   }
 }
 
