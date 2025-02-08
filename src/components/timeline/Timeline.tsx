@@ -195,7 +195,7 @@ export default function Timeline() {
         >
           <div className="absolute top-0 left-1/2 h-full border-l border-border"></div>
           <div className="absolute top-1/2 left-0 w-full border-t border-border"></div>
-          <TimelineZones className="z-0" />
+          <TimelineZones className="z-0" timelineHeight={timelineHeight} events={events} />
           <TimelineMarkers
             centerDate={centerDate}
             timeUnit={timeUnit}
@@ -210,6 +210,7 @@ export default function Timeline() {
             scale={scale}
             zoomLevelsScale={zoomLevelsScale}
             onEventClick={handleEventClick}
+            timelineHeight={timelineHeight}
           />
           {selectionStart && selectionEnd && (
             <div

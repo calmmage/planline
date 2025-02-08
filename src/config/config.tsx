@@ -30,10 +30,9 @@ export const MAX_SCALE = 1
 export const DEFAULT_NUM_TICKS = 50
 
 export const TIMELINE_ZONES = [
-  { id: 0, name: "Main Events", color: "bg-gray-100 dark:bg-gray-800" },
-  { id: 1, name: "Personal", color: "bg-gray-50 dark:bg-gray-900" },
-  { id: 2, name: "Work", color: "bg-gray-100 dark:bg-gray-800" },
-  { id: 3, name: "Health", color: "bg-gray-50 dark:bg-gray-900" },
-  { id: 4, name: "Projects", color: "bg-gray-100 dark:bg-gray-800" },
+  { id: 2, name: "Active (Trips)", color: "bg-blue-50/50 dark:bg-blue-950/30", position: 2 },
+  { id: 1, name: "Passive+ (Guests)", color: "bg-green-50/50 dark:bg-green-950/30", position: 1 },
+  { id: -1, name: "Passive- (Sick)", color: "bg-red-50/50 dark:bg-red-950/30", position: -1 },
+  { id: -2, name: "Events", color: "bg-purple-50/50 dark:bg-purple-950/30", position: -2 },
 ]
 
