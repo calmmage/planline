@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useRef, useEffect } from "react"
+import type React from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   addDays,
   startOfDay,
@@ -14,143 +14,173 @@ import {
   endOfYear,
   addYears,
   differenceInDays,
-} from "date-fns"
-import { createClient } from "@supabase/supabase-js"
-import AddEventButton from "../AddEventButton"
-import { Button } from "@/components/ui/button"
-import { Slider } from "@/components/ui/slider"
-import { TimelineMarkers } from "./TimelineMarkers"
-import { TimelineEvents } from "./TimelineEvents"
-import { TimelineZones } from "./TimelineZones"
-import { DevSettingsOverlay } from "./DevSettingsOverlay"
-import type { Event, TimeUnit } from "./types"
-import { MIN_SCALE, MAX_SCALE, DEFAULT_NUM_TICKS } from "@/config/config"
-import { CalendarDays } from "lucide-react"
+} from "date-fns";
+import { createClient } from "@supabase/supabase-js";
+import AddEventButton from "../AddEventButton";
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { TimelineMarkers } from "./TimelineMarkers";
+import { TimelineEvents } from "./TimelineEvents";
+import { TimelineZones } from "./TimelineZones";
+import { DevSettingsOverlay } from "./DevSettingsOverlay";
+import type { Event, TimeUnit } from "./types";
+import { MIN_SCALE, MAX_SCALE, DEFAULT_NUM_TICKS } from "@/config/config";
+import { CalendarDays } from "lucide-react";
+import EventDetails from "../EventDetails";
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+);
 
 export default function Timeline() {
-  const [events, setEvents] = useState<Event[]>([])
-  const [scale, setScale] = useState(0.01)
-  const [centerDate, setCenterDate] = useState(new Date())
-  const [timeUnit, setTimeUnit] = useState<TimeUnit>("month")
-  const [showDevSettings, setShowDevSettings] = useState(false)
-  const [zoomLevelsScale, setZoomLevelsScale] = useState(1)
-  const [numTicks, setNumTicks] = useState(DEFAULT_NUM_TICKS)
-  const timelineRef = useRef<HTMLDivElement>(null)
-  const [timelineHeight, setTimelineHeight] = useState(75)
-  const [selectionStart, setSelectionStart] = useState<Date | null>(null)
-  const [selectionEnd, setSelectionEnd] = useState<Date | null>(null)
+  const [events, setEvents] = useState<Event[]>([]);
+  const [scale, setScale] = useState(0.01);
+  const [centerDate, setCenterDate] = useState(new Date());
+  const [timeUnit, setTimeUnit] = useState<TimeUnit>("month");
+  const [showDevSettings, setShowDevSettings] = useState(false);
+  const [zoomLevelsScale, setZoomLevelsScale] = useState(1);
+  const [numTicks, setNumTicks] = useState(DEFAULT_NUM_TICKS);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const [timelineHeight, setTimelineHeight] = useState(75);
+  const [selectionStart, setSelectionStart] = useState<Date | null>(null);
+  const [selectionEnd, setSelectionEnd] = useState<Date | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   useEffect(() => {
-    fetchEvents()
-  }, [])
+    fetchEvents();
+  }, []);
 
   async function fetchEvents() {
-    const { data, error } = await supabase.from("events").select("*")
-    if (error) console.error("Error fetching events:", error)
-    else setEvents(data || [])
+    const { data, error } = await supabase.from("events").select("*");
+    if (error) console.error("Error fetching events:", error);
+    else setEvents(data || []);
   }
 
   function handleWheel(e: React.WheelEvent) {
     if (e.ctrlKey) {
-      e.preventDefault()
-      const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * (1 - e.deltaY * 0.001)))
-      setScale(newScale)
+      e.preventDefault();
+      const newScale = Math.max(
+        MIN_SCALE,
+        Math.min(MAX_SCALE, scale * (1 - e.deltaY * 0.001)),
+      );
+      setScale(newScale);
     } else {
-      const newCenterDate = addDays(centerDate, e.deltaY * 0.1)
-      setCenterDate(newCenterDate)
+      const newCenterDate = addDays(centerDate, e.deltaY * 0.1);
+      setCenterDate(newCenterDate);
     }
   }
 
   function getDateRange(date: Date, unit: TimeUnit): [Date, Date] {
     switch (unit) {
       case "day":
-        return [startOfDay(date), endOfDay(date)]
+        return [startOfDay(date), endOfDay(date)];
       case "week":
-        return [startOfWeek(date), endOfWeek(date)]
+        return [startOfWeek(date), endOfWeek(date)];
       case "month":
-        return [startOfMonth(date), endOfMonth(date)]
+        return [startOfMonth(date), endOfMonth(date)];
       case "quarter":
-        const quarterStart = new Date(date.getFullYear(), Math.floor(date.getMonth() / 3) * 3, 1)
-        const quarterEnd = new Date(quarterStart.getFullYear(), quarterStart.getMonth() + 3, 0)
-        return [quarterStart, quarterEnd]
+        const quarterStart = new Date(
+          date.getFullYear(),
+          Math.floor(date.getMonth() / 3) * 3,
+          1,
+        );
+        const quarterEnd = new Date(
+          quarterStart.getFullYear(),
+          quarterStart.getMonth() + 3,
+          0,
+        );
+        return [quarterStart, quarterEnd];
       case "year":
-        return [startOfYear(date), endOfYear(date)]
+        return [startOfYear(date), endOfYear(date)];
       case "decade":
-        const startDecade = new Date(Math.floor(date.getFullYear() / 10) * 10, 0, 1)
-        return [startDecade, addYears(startDecade, 10)]
+        const startDecade = new Date(
+          Math.floor(date.getFullYear() / 10) * 10,
+          0,
+          1,
+        );
+        return [startDecade, addYears(startDecade, 10)];
     }
   }
 
   function handleEventClick(event: Event) {
-    console.log("Event clicked:", event)
-    // todo: open edit event details dialog
+    setSelectedEvent(event);
   }
 
   function handleZoomChange(value: number[]) {
-    setScale(value[0])
+    setScale(value[0]);
   }
 
   function handleTimeUnitChange(unit: TimeUnit) {
-    setTimeUnit(unit)
+    setTimeUnit(unit);
   }
 
   function calculateVisibleTimeRange(): string {
-    if (!timelineRef.current) return "Unknown"
+    if (!timelineRef.current) return "Unknown";
 
-    const timelineWidth = timelineRef.current.clientWidth
-    const pixelsPerDay = 100 * scale * zoomLevelsScale
-    const visibleDays = timelineWidth / pixelsPerDay
+    const timelineWidth = timelineRef.current.clientWidth;
+    const pixelsPerDay = 100 * scale * zoomLevelsScale;
+    const visibleDays = timelineWidth / pixelsPerDay;
 
-    if (visibleDays < 1) return `${Math.round(visibleDays * 24)} hours`
-    if (visibleDays < 7) return `${Math.round(visibleDays)} days`
-    if (visibleDays < 30) return `${Math.round(visibleDays / 7)} weeks`
-    if (visibleDays < 365) return `${Math.round(visibleDays / 30)} months`
-    return `${Math.round(visibleDays / 365)} years`
+    if (visibleDays < 1) return `${Math.round(visibleDays * 24)} hours`;
+    if (visibleDays < 7) return `${Math.round(visibleDays)} days`;
+    if (visibleDays < 30) return `${Math.round(visibleDays / 7)} weeks`;
+    if (visibleDays < 365) return `${Math.round(visibleDays / 30)} months`;
+    return `${Math.round(visibleDays / 365)} years`;
   }
 
   function handleTodayClick() {
-    setCenterDate(new Date())
+    setCenterDate(new Date());
   }
 
   function handleTimelineMouseDown(e: React.MouseEvent) {
-    if (!timelineRef.current) return
-    const rect = timelineRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const totalWidth = rect.width
-    const daysFromCenter = (x - totalWidth / 2) / (100 * scale * zoomLevelsScale)
-    setSelectionStart(addDays(centerDate, daysFromCenter))
-    setSelectionEnd(null)
+    if (!timelineRef.current) return;
+    const rect = timelineRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const totalWidth = rect.width;
+    const daysFromCenter =
+      (x - totalWidth / 2) / (100 * scale * zoomLevelsScale);
+    setSelectionStart(addDays(centerDate, daysFromCenter));
+    setSelectionEnd(null);
   }
 
   function handleTimelineMouseMove(e: React.MouseEvent) {
-    if (!selectionStart || !timelineRef.current) return
-    const rect = timelineRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const totalWidth = rect.width
-    const daysFromCenter = (x - totalWidth / 2) / (100 * scale * zoomLevelsScale)
-    setSelectionEnd(addDays(centerDate, daysFromCenter))
+    if (!selectionStart || !timelineRef.current) return;
+    const rect = timelineRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const totalWidth = rect.width;
+    const daysFromCenter =
+      (x - totalWidth / 2) / (100 * scale * zoomLevelsScale);
+    setSelectionEnd(addDays(centerDate, daysFromCenter));
   }
 
   function handleTimelineMouseUp() {
     if (selectionStart && selectionEnd) {
       // Open AddEventButton dialog with pre-filled dates
-      console.log("Selection:", selectionStart, selectionEnd)
+      console.log("Selection:", selectionStart, selectionEnd);
     }
-    setSelectionStart(null)
-    setSelectionEnd(null)
+    setSelectionStart(null);
+    setSelectionEnd(null);
   }
 
   return (
-    <div 
-      className={`w-full relative`} 
+    <div
+      className={`w-full relative`}
       style={{ height: `${timelineHeight}vh` }}
     >
       <div className={`w-full h-full flex flex-col`}>
         <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-center p-2 bg-background/80 border-b border-border/50 backdrop-blur-sm">
           <div className="flex space-x-2">
-            {(["day", "week", "month", "quarter", "year", "decade"] as TimeUnit[]).map((unit) => (
+            {(
+              [
+                "day",
+                "week",
+                "month",
+                "quarter",
+                "year",
+                "decade",
+              ] as TimeUnit[]
+            ).map((unit) => (
               <Button
                 key={unit}
                 onClick={() => handleTimeUnitChange(unit)}
@@ -160,13 +190,21 @@ export default function Timeline() {
                 {unit.charAt(0).toUpperCase() + unit.slice(1)}
               </Button>
             ))}
-            <Button onClick={handleTodayClick} variant="outline" size="sm" className="flex items-center gap-2">
+            <Button
+              onClick={handleTodayClick}
+              variant="outline"
+              size="sm"
+              className="flex items-center gap-2"
+            >
               <CalendarDays className="h-4 w-4" />
               Today
             </Button>
           </div>
           <div className="flex items-center space-x-4">
-            <Button onClick={() => setShowDevSettings(!showDevSettings)} size="sm">
+            <Button
+              onClick={() => setShowDevSettings(!showDevSettings)}
+              size="sm"
+            >
               {showDevSettings ? "Hide Dev Settings" : "Show Dev Settings"}
             </Button>
           </div>
@@ -193,7 +231,11 @@ export default function Timeline() {
         >
           <div className="absolute top-0 left-1/2 h-full border-l border-border"></div>
           <div className="absolute top-1/2 left-0 w-full border-t border-border"></div>
-          <TimelineZones className="z-0" timelineHeight={timelineHeight} events={events} />
+          <TimelineZones
+            className="z-0"
+            timelineHeight={timelineHeight}
+            events={events}
+          />
           <TimelineMarkers
             centerDate={centerDate}
             timeUnit={timeUnit}
@@ -214,17 +256,37 @@ export default function Timeline() {
             <div
               className="absolute bg-blue-200 opacity-50"
               style={{
-                left: `calc(50% + ${differenceInDays(selectionStart, centerDate) * 100 * scale * zoomLevelsScale}px)`,
-                width: `${Math.abs(differenceInDays(selectionEnd, selectionStart)) * 100 * scale * zoomLevelsScale}px`,
+                left: `calc(50% + ${
+                  differenceInDays(selectionStart, centerDate) *
+                  100 *
+                  scale *
+                  zoomLevelsScale
+                }px)`,
+                width: `${
+                  Math.abs(differenceInDays(selectionEnd, selectionStart)) *
+                  100 *
+                  scale *
+                  zoomLevelsScale
+                }px`,
                 top: 0,
                 bottom: 0,
               }}
             />
           )}
           <AddEventButton onAddEvent={fetchEvents} />
+          <EventDetails
+            event={selectedEvent}
+            onClose={() => setSelectedEvent(null)}
+            onUpdate={() => {
+              fetchEvents();
+              setSelectedEvent(null);
+            }}
+          />
         </div>
         <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between p-2 bg-background/80 border-t border-border/50 backdrop-blur-sm">
-          <div className="text-sm">Visible time range: {calculateVisibleTimeRange()}</div>
+          <div className="text-sm">
+            Visible time range: {calculateVisibleTimeRange()}
+          </div>
           <Slider
             min={MIN_SCALE}
             max={MAX_SCALE}
@@ -236,6 +298,5 @@ export default function Timeline() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
