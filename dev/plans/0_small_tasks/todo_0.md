@@ -26,7 +26,7 @@
 - [x] 0) dev switcher for timeline component width?
 - [x] 0.1) fix dark mode switcher
   - [x] cleanup old switcher
-  - [ ] make colors nicer -  "bg-gray-900 text-white" : "bg-white text-black"}`}> was good
+  - [x] make colors nicer -  "bg-gray-900 text-white" : "bg-white text-black"}`}> was good
   - [x] consider making it a switcher again?
 - 1) Zones -> show.
 - 2) Switch to log scale
