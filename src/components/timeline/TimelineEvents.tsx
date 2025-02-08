@@ -75,42 +75,21 @@ export function TimelineEvents({
           backgroundColor: event.color,
           top: `${verticalPosition}%`,
           transform: "translateY(-50%)",
-          opacity: 0.6,
-          borderRadius: "6px",
-          // Multiple layered shadows for depth + theme-aware border
-          // boxShadow: `
-          //   0 4px 6px -1px var(--shadow-color-strong),
-          //   0 2px 4px -1px var(--shadow-color-weak),
-          //   0 0 0 2px var(--border)
-          // `,
-          // Theme-aware border using CSS variable
-          // border: '2px solid var(--border)',
-
-          // boxShadow:
-          //    "0 4px 6px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(255, 255, 255, 0.08)",
-          // : "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)",
-          // border: "1px solid var(--border-color)",
         };
 
-        if (event.is_crayon) {
-          eventStyle.borderRadius = "8px";
-          eventStyle.opacity = 0.9;
-          // For crayon events, keep the special outline effect but make it more prominent
-          // eventStyle.boxShadow = `
-          //   0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          //   0 2px 4px -1px rgba(0, 0, 0, 0.06),
-          //   0 0 0 4px var(--background),
-          //   0 0 0 6px ${event.color}
-          // `;
-          eventStyle.border = `2px solid ${event.color}`;
-        }
+        const baseClasses =
+          "absolute h-8 flex items-center justify-center text-xs text-white cursor-pointer opacity-60 rounded-md shadow-md border border-transparent transition-all duration-200";
+        const hoverClasses =
+          "hover:opacity-100 hover:shadow-xl hover:border-2 hover:border-black dark:hover:border-white hover:scale-[1.02] hover:z-10";
+
+        const classes = event.is_crayon
+          ? `${baseClasses} ${hoverClasses} opacity-90 rounded-lg`
+          : `${baseClasses} ${hoverClasses}`;
 
         return (
           <div
             key={event.id}
-            className="absolute h-8 flex items-center justify-center text-xs text-white cursor-pointer
-              shadow-md hover:shadow-xl hover:border-2 hover:border-black hover:opacity-100
-              hover:scale-[1.02] hover:z-10 transition-all duration-200"
+            className={classes}
             style={eventStyle}
             onClick={() => onEventClick(event)}
           >
