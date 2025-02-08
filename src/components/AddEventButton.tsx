@@ -1,62 +1,76 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import supabase from "@/lib/supabaseClient"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import supabase from "@/lib/supabaseClient";
+import { TIMELINE_ZONES } from "@/config/config";
 
 interface AddEventButtonProps {
-  onAddEvent: () => void
+  onAddEvent: () => void;
 }
 
 interface EventType {
-  id: string
-  name: string
-  color: string
+  id: string;
+  name: string;
+  color: string;
 }
 
 export default function AddEventButton({ onAddEvent }: AddEventButtonProps) {
-  const [name, setName] = useState("New Event")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
-  const [eventType, setEventType] = useState("")
-  const [color, setColor] = useState("#000000")
-  const [zone, setZone] = useState("0")
-  const [eventTypes, setEventTypes] = useState<EventType[]>([])
-  const [isCrayon, setIsCrayon] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [name, setName] = useState("New Event");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [color, setColor] = useState("#000000");
+  const [zone, setZone] = useState("1");
+  const [eventTypes, setEventTypes] = useState<EventType[]>([]);
+  const [isCrayon, setIsCrayon] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetchEventTypes()
-  }, [])
+    fetchEventTypes();
+  }, []);
 
   async function fetchEventTypes() {
-    const { data, error } = await supabase.from("event_types").select("*")
+    const { data, error } = await supabase.from("event_types").select("*");
     if (error) {
-      console.error("Error fetching event types:", error)
-      setEventTypes([{ id: "default", name: "Event", color: "#000000" }])
+      console.error("Error fetching event types:", error);
+      setEventTypes([{ id: "default", name: "Event", color: "#000000" }]);
     } else {
-      setEventTypes(data || [])
-      const defaultEventType = data?.find((type) => type.name.toLowerCase() === "event") || data?.[0]
+      setEventTypes(data || []);
+      const defaultEventType =
+        data?.find((type) => type.name.toLowerCase() === "event") || data?.[0];
       if (defaultEventType) {
-        setEventType(defaultEventType.id)
-        setColor(defaultEventType.color)
+        setEventType(defaultEventType.id);
+        setColor(defaultEventType.color);
       }
     }
   }
 
   useEffect(() => {
-    const selectedType = eventTypes.find((type) => type.id === eventType)
+    const selectedType = eventTypes.find((type) => type.id === eventType);
     if (selectedType) {
-      setColor(selectedType.color)
+      setColor(selectedType.color);
     }
-  }, [eventType, eventTypes])
+  }, [eventType, eventTypes]);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+    e.preventDefault();
     const { error } = await supabase.from("events").insert([
       {
         name,
@@ -67,19 +81,19 @@ export default function AddEventButton({ onAddEvent }: AddEventButtonProps) {
         zone: Number.parseInt(zone),
         is_crayon: isCrayon,
       },
-    ])
+    ]);
 
-    if (error) console.error("Error adding event:", error)
+    if (error) console.error("Error adding event:", error);
     else {
-      onAddEvent()
-      setName("New Event")
-      setStartDate("")
-      setEndDate("")
-      setEventType("")
-      setColor("#000000")
-      setZone("0")
-      setIsCrayon(false)
-      setOpen(false)
+      onAddEvent();
+      setName("New Event");
+      setStartDate("");
+      setEndDate("");
+      setEventType("");
+      setColor("#000000");
+      setZone("1");
+      setIsCrayon(false);
+      setOpen(false);
     }
   }
 
@@ -95,7 +109,12 @@ export default function AddEventButton({ onAddEvent }: AddEventButtonProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label htmlFor="name">Name</Label>
-            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+            <Input
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
           </div>
           <div>
             <Label htmlFor="startDate">Start Date</Label>
@@ -109,7 +128,13 @@ export default function AddEventButton({ onAddEvent }: AddEventButtonProps) {
           </div>
           <div>
             <Label htmlFor="endDate">End Date</Label>
-            <Input id="endDate" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
+            <Input
+              id="endDate"
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              required
+            />
           </div>
           <div>
             <Label htmlFor="eventType">Event Type</Label>
@@ -128,7 +153,13 @@ export default function AddEventButton({ onAddEvent }: AddEventButtonProps) {
           </div>
           <div>
             <Label htmlFor="color">Color</Label>
-            <Input id="color" type="color" value={color} onChange={(e) => setColor(e.target.value)} required />
+            <Input
+              id="color"
+              type="color"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+              required
+            />
           </div>
           <div>
             <Label htmlFor="zone">Zone</Label>
@@ -137,22 +168,28 @@ export default function AddEventButton({ onAddEvent }: AddEventButtonProps) {
                 <SelectValue placeholder="Select a zone" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="2">2</SelectItem>
-                <SelectItem value="1">1</SelectItem>
-                <SelectItem value="0">0</SelectItem>
-                <SelectItem value="-1">-1</SelectItem>
-                <SelectItem value="-2">-2</SelectItem>
+                {TIMELINE_ZONES.sort((a, b) => b.position - a.position).map(
+                  (zone) => (
+                    <SelectItem key={zone.id} value={zone.id.toString()}>
+                      {zone.position}: {zone.name}
+                    </SelectItem>
+                  ),
+                )}
               </SelectContent>
             </Select>
           </div>
           <div>
             <Label htmlFor="isCrayon">Crayon Style</Label>
-            <Input id="isCrayon" type="checkbox" checked={isCrayon} onChange={(e) => setIsCrayon(e.target.checked)} />
+            <Input
+              id="isCrayon"
+              type="checkbox"
+              checked={isCrayon}
+              onChange={(e) => setIsCrayon(e.target.checked)}
+            />
           </div>
           <Button type="submit">Add Event</Button>
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-

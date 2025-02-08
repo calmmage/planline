@@ -14,12 +14,12 @@ export function TimelineZones({
 }: TimelineZonesProps) {
   // Sort zones by position to ensure correct rendering order
   const sortedZones = [...TIMELINE_ZONES].sort(
-    (a, b) => b.position - a.position,
+    (a, b) => a.position - b.position,
   );
 
   // Split zones into above and below axis
   const aboveZones = sortedZones.filter((zone) => zone.position > 0);
-  const belowZones = sortedZones.filter((zone) => zone.position < 0);
+  const belowZones = sortedZones.filter((zone) => zone.position < 0).reverse();
 
   // Calculate zone heights
   const calculateZoneHeights = (zones: typeof TIMELINE_ZONES) => {
