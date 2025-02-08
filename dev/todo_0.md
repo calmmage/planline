@@ -20,6 +20,9 @@
 
 - Add scale preset buttons (day, month, week etc) -
   - Clearly write that current buttons chage tick axes, not scale. Put them separately
+- Fix events locations and sizes
+  - Put events into zones correctly
+  - Dynamically determine event height and vertical position - to fit all events in the zone
 
 ## Roadmap what I am doing
 

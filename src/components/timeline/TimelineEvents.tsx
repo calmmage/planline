@@ -75,12 +75,25 @@ export function TimelineEvents({
           backgroundColor: event.color,
           top: `${verticalPosition}%`,
           transform: "translateY(-50%)",
+          height: "10%",
         };
 
         const baseClasses =
-          "absolute h-8 flex items-center justify-center text-xs text-white cursor-pointer opacity-60 rounded-md shadow-md border border-transparent transition-all duration-200";
-        const hoverClasses =
-          "hover:opacity-100 hover:shadow-xl hover:border-2 hover:border-black dark:hover:border-white hover:scale-[1.02] hover:z-10";
+          "absolute h-8 flex items-center justify-center text-xs text-white cursor-pointer opacity-80 rounded-md border border-transparent transition-all duration-200";
+        const hoverClasses = [
+          "hover:opacity-100",
+          "hover:shadow-lg",
+          "hover:border-2",
+          "hover:border-primary",
+          "hover:scale-[1.02]",
+          "hover:z-10",
+
+          "dark:hover:shadow-white/25",
+          "dark:hover:border-white",
+          "dark:hover:scale-[1.02]",
+          "dark:hover:z-10",
+          "dark:hover:shadow-primary-foreground/25",
+        ].join(" ");
 
         const classes = event.is_crayon
           ? `${baseClasses} ${hoverClasses} opacity-90 rounded-lg`
