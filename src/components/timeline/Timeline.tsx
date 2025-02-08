@@ -23,6 +23,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { TimelineMarkers } from "./TimelineMarkers"
 import { TimelineEvents } from "./TimelineEvents"
+import { TimelineZones } from "./TimelineZones"
 import { DevSettingsOverlay } from "./DevSettingsOverlay"
 import type { Event, TimeUnit } from "./types"
 import { MIN_SCALE, MAX_SCALE, DEFAULT_NUM_TICKS } from "@/config/config"
@@ -194,6 +195,7 @@ export default function Timeline() {
         >
           <div className="absolute top-0 left-1/2 h-full border-l border-border"></div>
           <div className="absolute top-1/2 left-0 w-full border-t border-border"></div>
+          <TimelineZones className="z-0" />
           <TimelineMarkers
             centerDate={centerDate}
             timeUnit={timeUnit}
