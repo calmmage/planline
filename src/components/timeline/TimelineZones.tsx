@@ -39,10 +39,10 @@ export function TimelineZones({ className = "", timelineHeight, events }: Timeli
         {aboveZonesWithHeight.map((zone) => (
           <div
             key={zone.id}
-            className={`${zone.color} transition-colors duration-200 border-t border-border/20`}
+            className={`${zone.color} transition-colors duration-200 border-t border-border/20 relative`}
             style={{ height: zone.height }}
           >
-            <div className="absolute left-2 top-1/2 -translate-y-1/2">
+            <div className="absolute left-2 inset-y-0 flex items-center">
               <span className="text-xs text-gray-500 dark:text-gray-400 opacity-60 whitespace-nowrap">
                 {zone.name}
               </span>
@@ -56,10 +56,10 @@ export function TimelineZones({ className = "", timelineHeight, events }: Timeli
         {belowZonesWithHeight.map((zone) => (
           <div
             key={zone.id}
-            className={`${zone.color} transition-colors duration-200 border-b border-border/20`}
+            className={`${zone.color} transition-colors duration-200 border-b border-border/20 relative`}
             style={{ height: zone.height }}
           >
-            <div className="absolute left-2 top-1/2 -translate-y-1/2">
+            <div className="absolute left-2 inset-y-0 flex items-center">
               <span className="text-xs text-gray-500 dark:text-gray-400 opacity-60 whitespace-nowrap">
                 {zone.name}
               </span>
